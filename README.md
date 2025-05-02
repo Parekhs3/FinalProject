@@ -36,4 +36,6 @@ hist(data$Education_Spending
   xlab = "Education Spending (% of GDP)", 
   col = "skyblue", 
   border = "white")
-  
+
+# Conclusion 
+In this analysis, we examined education data across Europan countires. Our goal was to evaluate weather spending differs between Northern and Southern Europe, and if spending correlated with student outcomes. In the data we found ( RESULT ). These findings suggest that ( BRIEF INTERPRETATION ). Future studies could include additional variables like income level, digital accesses and urbanization in schools. 
