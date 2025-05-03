@@ -25,8 +25,6 @@ average test scores, and region (such as., Northern Europe, Southern Europe, etc
 1. Is there a significant difference in education spending between Northern and Southern European countires?
 2. Does higher education spending correlate with better student test scores?
 
-# Descriptive Statistics 
-
 
 
 # Histrogram of the education Spending 
