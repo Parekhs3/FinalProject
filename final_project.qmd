@@ -1,0 +1,67 @@
+---
+title: "Final Project: Adult Participation in Education and Training in Europe"
+Authors: "Ryan Stanisci, Alison Iniguez, Sweta Parekh"
+format: html
+editor: visual
+---
+
+## Introduction
+
+This project analyzes adult participation in education and training across European countries using data from Eurostat. The dataset includes information by gender (`sex`), age group (`age`), and country (`geo`) for the year 2022. The percentage of people participating in training (`OBS_VALUE`) serves as the primary measure.
+
+## Data Description
+
+The dataset contains the following variables:
+
+-   **sex**: Gender of individuals (`F` = Female, `M` = Male, `T` = Total)
+-   **age**: Age group (e.g., `Y25-34` = ages 25 to 34)
+-   **geo**: Country code according to Eurostat standards (e.g., `AT` = Austria)
+-   **OBS_VALUE**: Percentage of people participating in education or training in 2022
+
+## Research Questions
+
+1.  How does participation in education/training vary by gender in 2022 across European countries?
+2.  Is there a statistically significant difference in participation by gender?
+
+## Descriptive Analysis
+
+```{r}
+# Load libraries
+library(tidyverse)
+
+# Load the data (assumes a CSV file in your working directory)
+data <- read_csv("estat_trng_lfse_01_en (1).csv") |> 
+  filter(TIME_PERIOD == 2022, !is.na(OBS_VALUE)) |> 
+  select(sex, age, geo, OBS_VALUE)
+
+# Histogram of participation rates
+ggplot(data, aes(x = OBS_VALUE)) +
+  geom_histogram(binwidth = 2, fill = "steelblue", color = "black") +
+  labs(title = "Distribution of Participation in Education/Training (2022)",
+       x = "Participation (%)", y = "Count")
+
+# Boxplot of participation by gender
+ggplot(data, aes(x = sex, y = OBS_VALUE, fill = sex)) +
+  geom_boxplot() +
+  labs(title = "Participation by Gender", x = "Gender", y = "Participation (%)")
+
+```
+
+## Inferential Statistics
+
+```{r}
+# T-test: compare participation between male and female
+data_filtered <- data |> filter(sex %in% c("F", "M"))
+t_test_result <- t.test(OBS_VALUE ~ sex, data = data_filtered)
+t_test_result
+
+# ANOVA: compare means across all gender categories
+anova_result <- aov(OBS_VALUE ~ sex, data = data)
+summary(anova_result)
+```
+
+## Conclusion
+
+In this analysis, we explored adult participation in education and training across Europe in 2022. Our descriptive analysis revealed differences in participation by gender and country. The histogram showed overall distribution, while the boxplot highlighted variability by gender.
+
+The inferential analysis suggested that these differences are statistically significant. Further research could explore factors such as employment status, education level, or national policies that contribute to disparities in lifelong learning.
